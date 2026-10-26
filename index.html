@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOKA STUDIO — Minimalist Design & Lifestyle</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        moka: {
+                            50: '#f9f8f6',
+                            100: '#f0ede6',
+                            200: '#ded7cc',
+                            300: '#c5bcaf',
+                            800: '#3a3632',
+                            900: '#1e1c1a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom scrollbar & smooth styling */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0ede6; }
+        ::-webkit-scrollbar-thumb { background: #c5bcaf; border-radius: 3px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-moka-50 text-moka-900 font-sans antialiased selection:bg-moka-200">
+
+    <!-- Announcement Bar -->
+    <div class="bg-moka-900 text-moka-50 text-xs py-2 px-4 text-center tracking-widest font-medium uppercase transition-all duration-300">
+        Complimentary Express Shipping on Orders Over ₹2,999 • Use Code: <span class="underline underline-offset-4 font-semibold">MOKA10</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="site-header" class="sticky top-0 z-40 bg-moka-50/90 backdrop-blur-md border-b border-moka-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Mobile Menu Trigger -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 text-moka-900 hover:text-moka-600 focus:outline-none" aria-label="Toggle Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm tracking-wider uppercase font-medium">
+                <a href="#shop" class="hover:text-moka-600 transition-colors">Shop All</a>
+                <a href="#collections" class="hover:text-moka-600 transition-colors">Collections</a>
+                <a href="#about" class="hover:text-moka-600 transition-colors">The Studio</a>
+                <a href="#journal" class="hover:text-moka-600 transition-colors">Journal</a>
+            </nav>
+
+            <!-- Brand Logo -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 text-center">
+                <a href="#" class="font-serif text-2xl sm:text-3xl font-semibold tracking-widest uppercase">Moka Studio</a>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-5">
+                <button id="search-btn" class="p-2 text-moka-900 hover:text-moka-600 transition-colors" aria-label="Search">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+                <button id="account-btn" class="hidden sm:block p-2 text-moka-900 hover:text-moka-600 transition-colors" aria-label="Account">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                </button>
+                <button id="cart-btn" class="relative p-2 text-moka-900 hover:text-moka-600 transition-colors" aria-label="Cart">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-badge" class="absolute top-1 right-1 bg-moka-900 text-moka-50 text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden transition-opacity opacity-0">
+        <div class="absolute top-0 left-0 bottom-0 w-4/5 max-w-sm bg-moka-50 shadow-2xl p-6 flex flex-col justify-between transform -translate-x-full transition-transform duration-300" id="mobile-menu-panel">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-moka-200">
+                    <span class="font-serif text-xl font-semibold tracking-wider">Menu</span>
+                    <button id="mobile-menu-close" class="p-2 text-moka-900 hover:text-moka-600">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-6 pt-8 text-base tracking-widest uppercase font-medium">
+                    <a href="#shop" class="mobile-nav-link hover:text-moka-600">Shop All</a>
+                    <a href="#collections" class="mobile-nav-link hover:text-moka-600">Collections</a>
+                    <a href="#about" class="mobile-nav-link hover:text-moka-600">The Studio</a>
+                    <a href="#journal" class="mobile-nav-link hover:text-moka-600">Journal</a>
+                </nav>
+            </div>
+            <div class="pt-6 border-t border-moka-200 text-xs tracking-wider text-moka-800">
+                <p>© 2026 Moka Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 z-50 bg-moka-50/95 backdrop-blur-md hidden flex-col items-center justify-start pt-24 px-4 transition-all">
+        <button id="search-close" class="absolute top-6 right-6 p-2 text-moka-900 hover:text-moka-600">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div class="w-full max-w-2xl text-center">
+            <h2 class="font-serif text-3xl mb-8">What are you looking for?</h2>
+            <div class="relative border-b-2 border-moka-900 pb-2">
+                <input type="text" id="search-input" placeholder="Search products, collections..." class="w-full bg-transparent text-xl sm:text-2xl text-center focus:outline-none placeholder-moka-300">
+                <i data-lucide="search" class="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 text-moka-300"></i>
+            </div>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="text-xs uppercase tracking-wider text-moka-800 self-center mr-2">Popular:</span>
+                <button class="search-tag px-3 py-1 bg-moka-200/50 hover:bg-moka-200 text-xs tracking-wider rounded-full transition-colors">Ceramics</button>
+                <button class="search-tag px-3 py-1 bg-moka-200/50 hover:bg-moka-200 text-xs tracking-wider rounded-full transition-colors">Vessels</button>
+                <button class="search-tag px-3 py-1 bg-moka-200/50 hover:bg-moka-200 text-xs tracking-wider rounded-full transition-colors">Textiles</button>
+                <button class="search-tag px-3 py-1 bg-moka-200/50 hover:bg-moka-200 text-xs tracking-wider rounded-full transition-colors">Home Decor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden transition-opacity opacity-0 flex justify-end">
+        <div class="w-full max-w-md bg-moka-50 h-full shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="cart-panel">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-moka-200">
+                    <div class="flex items-center space-x-2">
+                        <span class="font-serif text-xl font-semibold tracking-wider">Your Cart</span>
+                        <span id="cart-count-badge" class="bg-moka-200 text-moka-900 text-xs px-2 py-0.5 rounded-full font-medium">0 items</span>
+                    </div>
+                    <button id="cart-close" class="p-2 text-moka-900 hover:text-moka-600">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <!-- Cart Items Container -->
+                <div id="cart-items-container" class="py-6 space-y-4 overflow-y-auto max-h-[calc(100vh-280px)]">
+                    <!-- Empty Cart Notice -->
+                    <div id="empty-cart-message" class="text-center py-16 text-moka-800">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-4 stroke-1 opacity-50"></i>
+                        <p class="font-serif text-lg mb-2">Your cart is empty</p>
+                        <p class="text-xs text-moka-800 tracking-wider">Explore our collection to find something special.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cart Footer -->
+            <div class="pt-6 border-t border-moka-200">
+                <div class="flex justify-between items-center mb-4 text-sm font-medium">
+                    <span class="tracking-wider uppercase">Subtotal</span>
+                    <span id="cart-subtotal" class="font-serif text-lg">₹0</span>
+                </div>
+                <p class="text-[11px] text-moka-800 mb-4 tracking-wider">Shipping, taxes, and discount codes calculated at checkout.</p>
+                <button id="checkout-btn" class="w-full bg-moka-900 text-moka-50 py-4 text-xs font-semibold tracking-widest uppercase hover:bg-moka-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-[85vh] sm:h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000" alt="Minimalist Interior" class="w-full h-full object-cover object-center brightness-90 scale-105 transition-transform duration-1000">
+            <div class="absolute inset-0 bg-black/25"></div>
+        </div>
+        <div class="relative z-10 text-center text-moka-50 max-w-3xl px-4">
+            <span class="inline-block text-xs uppercase tracking-[0.3em] mb-4 font-medium bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full">New Arrival Collection</span>
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-wide mb-6 leading-tight">Form Meets Serenity</h1>
+            <p class="text-sm sm:text-base text-moka-100/90 max-w-xl mx-auto mb-8 font-light tracking-wide leading-relaxed">Handcrafted stoneware, artisanal objects, and considered essentials designed to bring calm and tactile elegance to everyday living.</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#shop" class="w-full sm:w-auto bg-moka-50 text-moka-900 px-8 py-4 text-xs font-semibold tracking-widest uppercase hover:bg-moka-100 transition-all duration-300">Explore Collection</a>
+                <a href="#about" class="w-full sm:w-auto border border-moka-50 text-moka-50 px-8 py-4 text-xs font-semibold tracking-widest uppercase hover:bg-white/10 transition-all duration-300">Our Philosophy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Values Banner -->
+    <section class="py-12 bg-moka-100/60 border-y border-moka-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="flex flex-col items-center">
+                <i data-lucide="feather" class="w-6 h-6 mb-3 text-moka-900 stroke-1"></i>
+                <h3 class="font-serif text-base font-medium mb-1">Thoughtful Craftsmanship</h3>
+                <p class="text-xs text-moka-800 tracking-wider">Created in small batches by master artisans.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i data-lucide="shield-check" class="w-6 h-6 mb-3 text-moka-900 stroke-1"></i>
+                <h3 class="font-serif text-base font-medium mb-1">Sustainable Materials</h3>
+                <p class="text-xs text-moka-800 tracking-wider">Responsibly sourced organic clay & natural fibers.</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i data-lucide="truck" class="w-6 h-6 mb-3 text-moka-900 stroke-1"></i>
+                <h3 class="font-serif text-base font-medium mb-1">Secure Worldwide Shipping</h3>
+                <p class="text-xs text-moka-800 tracking-wider">Carefully packaged with eco-friendly buffers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories Grid -->
+    <section id="collections" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-xs uppercase tracking-[0.25em] text-moka-800 block mb-2 font-medium">Curated Living</span>
+            <h2 class="font-serif text-3xl sm:text-4xl">Explore Categories</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Category 1 -->
+            <div class="group relative h-96 overflow-hidden cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=800" alt="Ceramics & Vessels" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-moka-50 flex justify-between items-end">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest block mb-1 opacity-80">01 / Collection</span>
+                        <h3 class="font-serif text-2xl font-normal">Ceramics & Vessels</h3>
+                    </div>
+                    <span class="text-xs tracking-wider underline underline-offset-4 opacity-0 group-hover:opacity-100 transition-opacity">View All</span>
+                </div>
+            </div>
+            <!-- Category 2 -->
+            <div class="group relative h-96 overflow-hidden cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=800" alt="Textiles & Throws" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-moka-50 flex justify-between items-end">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest block mb-1 opacity-80">02 / Collection</span>
+                        <h3 class="font-serif text-2xl font-normal">Textiles & Throws</h3>
+                    </div>
+                    <span class="text-xs tracking-wider underline underline-offset-4 opacity-0 group-hover:opacity-100 transition-opacity">View All</span>
+                </div>
+            </div>
+            <!-- Category 3 -->
+            <div class="group relative h-96 overflow-hidden cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800" alt="Lighting & Objects" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-moka-50 flex justify-between items-end">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest block mb-1 opacity-80">03 / Collection</span>
+                        <h3 class="font-serif text-2xl font-normal">Lighting & Objects</h3>
+                    </div>
+                    <span class="text-xs tracking-wider underline underline-offset-4 opacity-0 group-hover:opacity-100 transition-opacity">View All</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid Section -->
+    <section id="shop" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <span class="text-xs uppercase tracking-[0.25em] text-moka-800 block mb-2 font-medium">Handcrafted Catalog</span>
+                <h2 class="font-serif text-3xl sm:text-4xl">Featured Objects</h2>
+            </div>
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                <button class="filter-tab px-4 py-2 text-xs uppercase tracking-wider bg-moka-900 text-moka-50 transition-colors" data-filter="all">All</button>
+                <button class="filter-tab px-4 py-2 text-xs uppercase tracking-wider bg-moka-200/60 hover:bg-moka-200 text-moka-900 transition-colors" data-filter="ceramics">Ceramics</button>
+                <button class="filter-tab px-4 py-2 text-xs uppercase tracking-wider bg-moka-200/60 hover:bg-moka-200 text-moka-900 transition-colors" data-filter="decor">Decor</button>
+                <button class="filter-tab px-4 py-2 text-xs uppercase tracking-wider bg-moka-200/60 hover:bg-moka-200 text-moka-900 transition-colors" data-filter="textiles">Textiles</button>
+            </div>
+        </div>
+
+        <!-- Products Container -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+            <!-- Product 1 -->
+            <div class="product-card group" data-category="ceramics" data-id="1" data-name="Kura Ceramic Vase" data-price="3499" data-image="https://images.unsplash.com/photo-1612196808214-b8e1d6145a5c?auto=format&fit=crop&q=80&w=700">
+                <div class="relative aspect-[3/4] bg-moka-200 mb-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1612196808214-b8e1d6145a5c?auto=format&fit=crop&q=80&w=700" alt="Kura Ceramic Vase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-moka-50/90 text-moka-900 text-[10px] uppercase tracking-wider px-2.5 py-1 font-medium">Bestseller</span>
+                    <button class="quick-add-btn absolute bottom-3 left-3 right-3 bg-moka-50/95 text-moka-900 py-3 text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-moka-900 hover:text-moka-50 flex items-center justify-center space-x-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Quick Add</span>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-base font-medium group-hover:text-moka-600 transition-colors">Kura Ceramic Vase</h3>
+                        <p class="text-xs text-moka-800 tracking-wider mt-0.5">Matte Sand Finish</p>
+                    </div>
+                    <span class="font-serif text-base font-medium">₹3,499</span>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card group" data-category="decor" data-id="2" data-name="Sora Minimalist Bowl" data-price="2299" data-image="https://images.unsplash.com/photo-1590296751655-e2a4cb3755dd?auto=format&fit=crop&q=80&w=700">
+                <div class="relative aspect-[3/4] bg-moka-200 mb-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1590296751655-e2a4cb3755dd?auto=format&fit=crop&q=80&w=700" alt="Sora Minimalist Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="quick-add-btn absolute bottom-3 left-3 right-3 bg-moka-50/95 text-moka-900 py-3 text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-moka-900 hover:text-moka-50 flex items-center justify-center space-x-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Quick Add</span>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-base font-medium group-hover:text-moka-600 transition-colors">Sora Minimalist Bowl</h3>
+                        <p class="text-xs text-moka-800 tracking-wider mt-0.5">Terracotta Clay</p>
+                    </div>
+                    <span class="font-serif text-base font-medium">₹2,299</span>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card group" data-category="textiles" data-id="3" data-name="Linen Artisan Throw" data-price="4899" data-image="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=700">
+                <div class="relative aspect-[3/4] bg-moka-200 mb-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&q=80&w=700" alt="Linen Artisan Throw" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-moka-900 text-moka-50 text-[10px] uppercase tracking-wider px-2.5 py-1 font-medium">New</span>
+                    <button class="quick-add-btn absolute bottom-3 left-3 right-3 bg-moka-50/95 text-moka-900 py-3 text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-moka-900 hover:text-moka-50 flex items-center justify-center space-x-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Quick Add</span>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-base font-medium group-hover:text-moka-600 transition-colors">Linen Artisan Throw</h3>
+                        <p class="text-xs text-moka-800 tracking-wider mt-0.5">Raw Flax & Oat</p>
+                    </div>
+                    <span class="font-serif text-base font-medium">₹4,899</span>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card group" data-category="ceramics" data-id="4" data-name="Aethel Sculptural Pillar" data-price="5500" data-image="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&q=80&w=700">
+                <div class="relative aspect-[3/4] bg-moka-200 mb-4 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&q=80&w=700" alt="Aethel Sculptural Pillar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="quick-add-btn absolute bottom-3 left-3 right-3 bg-moka-50/95 text-moka-900 py-3 text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-moka-900 hover:text-moka-50 flex items-center justify-center space-x-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Quick Add</span>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-serif text-base font-medium group-hover:text-moka-600 transition-colors">Aethel Sculptural Pillar</h3>
+                        <p class="text-xs text-moka-800 tracking-wider mt-0.5">Ceramic Object</p>
+                    </div>
+                    <span class="font-serif text-base font-medium">₹5,500</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Banner Section -->
+    <section id="about" class="py-24 bg-moka-100/50 border-y border-moka-200 my-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=1000" alt="Studio craftsmanship" class="w-full h-full object-cover">
+            </div>
+            <div class="lg:pl-12">
+                <span class="text-xs uppercase tracking-[0.25em] text-moka-800 block mb-3 font-medium">Our Philosophy</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl mb-6 leading-tight">Design born from quiet contemplation.</h2>
+                <p class="text-moka-800 text-sm leading-relaxed mb-6">Moka Studio was founded on the belief that our immediate surroundings deeply influence our inner peace. Every piece in our collection is curated or handcrafted with meticulous attention to natural textures, honest materials, and timeless geometric balance.</p>
+                <p class="text-moka-800 text-sm leading-relaxed mb-8">We collaborate with independent ceramicists and artisan weavers who honor ancestral techniques while keeping modern minimalism at heart.</p>
+                <a href="#shop" class="inline-block bg-moka-900 text-moka-50 px-8 py-4 text-xs font-semibold tracking-widest uppercase hover:bg-moka-800 transition-colors">Discover Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 max-w-4xl mx-auto px-4 text-center">
+        <span class="text-xs uppercase tracking-[0.25em] text-moka-800 block mb-2 font-medium">Stay Connected</span>
+        <h2 class="font-serif text-3xl sm:text-4xl mb-4">Join the Moka Circle</h2>
+        <p class="text-sm text-moka-800 max-w-lg mx-auto mb-8">Receive private invitations to new collection drops, journal stories, and 10% off your first order.</p>
+        <form id="newsletter-form" class="flex flex-col sm:flex-row justify-center max-w-md mx-auto gap-3">
+            <input type="email" id="newsletter-email" placeholder="Enter your email address" required class="flex-grow px-4 py-3 bg-moka-100 border border-moka-200 text-sm focus:outline-none focus:border-moka-900 placeholder-moka-300">
+            <button type="submit" class="bg-moka-900 text-moka-50 px-6 py-3 text-xs uppercase tracking-widest font-semibold hover:bg-moka-800 transition-colors">Subscribe</button>
+        </form>
+        <p id="newsletter-success" class="text-xs text-green-700 mt-3 hidden">Thank you for joining our circle.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-moka-900 text-moka-50 pt-16 pb-12 border-t border-moka-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+            <div>
+                <h3 class="font-serif text-2xl tracking-widest uppercase mb-4">Moka Studio</h3>
+                <p class="text-xs text-moka-300 leading-relaxed">Thoughtfully crafted minimalist objects and home essentials designed for serene living spaces.</p>
+            </div>
+            <div>
+                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-moka-200">Quick Links</h4>
+                <ul class="space-y-2.5 text-xs text-moka-300">
+                    <li><a href="#shop" class="hover:text-moka-50 transition-colors">Shop Collection</a></li>
+                    <li><a href="#collections" class="hover:text-moka-50 transition-colors">Curated Sets</a></li>
+                    <li><a href="#about" class="hover:text-moka-50 transition-colors">Our Story</a></li>
+                    <li><a href="#journal" class="hover:text-moka-50 transition-colors">Journal</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-moka-200">Customer Care</h4>
+                <ul class="space-y-2.5 text-xs text-moka-300">
+                    <li><a href="#" class="hover:text-moka-50 transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-moka-50 transition-colors">Track Order</a></li>
+                    <li><a href="#" class="hover:text-moka-50 transition-colors">Care Instructions</a></li>
+                    <li><a href="#" class="hover:text-moka-50 transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-moka-200">Connect</h4>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#" class="w-9 h-9 border border-moka-700 rounded-full flex items-center justify-center hover:bg-moka-800 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 border border-moka-700 rounded-full flex items-center justify-center hover:bg-moka-800 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 border border-moka-700 rounded-full flex items-center justify-center hover:bg-moka-800 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+                <p class="text-xs text-moka-300">hello@mokastudio.in</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-moka-800 flex flex-col sm:flex-row justify-between items-center text-xs text-moka-300">
+            <p>© 2026 Moka Studio. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 sm:mt-0">
+                <a href="#" class="hover:text-moka-50 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-moka-50 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Cart State
+        let cart = [];
+
+        // DOM Elements
+        const cartBtn = document.getElementById('cart-btn');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartPanel = document.getElementById('cart-panel');
+        const cartClose = document.getElementById('cart-close');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartCountBadge = document.getElementById('cart-count-badge');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // Search Overlay
+        const searchBtn = document.getElementById('search-btn');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchClose = document.getElementById('search-close');
+        const searchInput = document.getElementById('search-input');
+        const searchTags = document.querySelectorAll('.search-tag');
+
+        // Filter Tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const productCards = document.querySelectorAll('.product-card');
+
+        // Newsletter Form
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterSuccess = document.getElementById('newsletter-success');
+
+        // Toggle Cart Drawer
+        function toggleCart(open) {
+            if (open) {
+                cartDrawer.classList.remove('hidden');
+                setTimeout(() => {
+                    cartDrawer.classList.remove('opacity-0');
+                    cartPanel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                cartDrawer.classList.add('opacity-0');
+                cartPanel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    cartDrawer.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        cartBtn.addEventListener('click', () => toggleCart(true));
+        cartClose.addEventListener('click', () => toggleCart(false));
+        cartDrawer.addEventListener('click', (e) => {
+            if (e.target === cartDrawer) toggleCart(false);
+        });
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu(open) {
+            if (open) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('opacity-0');
+                    mobileMenuPanel.classList.remove('-translate-x-full');
+                }, 10);
+            } else {
+                mobileMenu.classList.add('opacity-0');
+                mobileMenuPanel.classList.add('-translate-x-full');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
+        mobileMenuClose.addEventListener('click', () => toggleMobileMenu(false));
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) toggleMobileMenu(false);
+        });
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => toggleMobileMenu(false));
+        });
+
+        // Toggle Search Overlay
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.remove('hidden');
+            searchOverlay.classList.add('flex');
+            setTimeout(() => searchInput.focus(), 100);
+        });
+        searchClose.addEventListener('click', () => {
+            searchOverlay.classList.remove('flex');
+            searchOverlay.classList.add('hidden');
+        });
+        searchTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                searchInput.value = tag.textContent;
+                searchInput.focus();
+            });
+        });
+
+        // Filter Products
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => {
+                    t.classList.remove('bg-moka-900', 'text-moka-50');
+                    t.classList.add('bg-moka-200/60', 'text-moka-900');
+                });
+                tab.classList.remove('bg-moka-200/60', 'text-moka-900');
+                tab.classList.add('bg-moka-900', 'text-moka-50');
+
+                const filter = tab.getAttribute('data-filter');
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Add to Cart Logic
+        document.querySelectorAll('.quick-add-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card');
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const price = parseInt(card.getAttribute('data-price'));
+                const image = card.getAttribute('data-image');
+
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, image, quantity: 1 });
+                }
+
+                updateCartUI();
+                toggleCart(true);
+            });
+        });
+
+        // Update Cart UI
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalCount;
+            cartCountBadge.textContent = `${totalCount} item${totalCount === 1 ? '' : 's'}`;
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+                cartItemsContainer.appendChild(emptyCartMessage);
+                cartSubtotal.textContent = '₹0';
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            emptyCartMessage.style.display = 'none';
+            let itemsHTML = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+                itemsHTML += `
+                    <div class="flex items-center space-x-4 pb-4 border-b border-moka-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover bg-moka-200">
+                        <div class="flex-grow">
+                            <h4 class="font-serif text-sm font-medium">${item.name}</h4>
+                            <p class="text-xs text-moka-800 mt-1">₹${item.price.toLocaleString('en-IN')}</p>
+                            <div class="flex items-center space-x-3 mt-2">
+                                <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 border border-moka-300 flex items-center justify-center text-xs hover:bg-moka-200">-</button>
+                                <span class="text-xs font-medium">${item.quantity}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 border border-moka-300 flex items-center justify-center text-xs hover:bg-moka-200">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeItem('${item.id}')" class="text-moka-800 hover:text-moka-900 p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = itemsHTML;
+            cartSubtotal.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            checkoutBtn.disabled = false;
+            lucide.createIcons();
+        }
+
+        // Quantity & Item Handlers (Global Scope)
+        window.updateQuantity = function(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCartUI();
+            }
+        };
+
+        window.removeItem = function(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        };
+
+        // Checkout Button Simulation
+        checkoutBtn.addEventListener('click', () => {
+            alert('Redirecting to secure checkout gateway...');
+        });
+
+        // Newsletter Form Handler
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            if (emailInput.value) {
+                newsletterSuccess.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    newsletterSuccess.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
